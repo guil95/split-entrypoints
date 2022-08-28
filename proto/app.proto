@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package users;
+
+import "google/protobuf/empty.proto";
+
+//protoc --go_out=./proto/genpb proto/app.proto
+//protoc --go-grpc_out=require_unimplemented_servers=false:./proto/genpb proto/app.proto
+option go_package = "./users";
+
+// Service of users application.
+service UsersService {
+  rpc GetUsers(google.protobuf.Empty) returns (GetUsersResponse) {}
+}
+
+// The list of users.
+message GetUsersResponse {
+  repeated User users = 1;
+}
+
+message User {
+  string name = 1;
+  int64 age = 2;
+}
