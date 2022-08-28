@@ -1,17 +1,19 @@
 package http
 
 import (
-	"github.com/guil95/split-entrypoints/internal/users/infra/server/http/server"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/guil95/split-entrypoints/internal/users/infra/server/http/server"
+	"go.uber.org/zap"
 )
 
 func init() {
 	gin.SetMode(gin.ReleaseMode)
 }
 
-func RunHTTPServer(quit chan error) {
+func RunHTTPServer(quit chan os.Signal) {
 	handler := gin.Default()
 
 	s := server.NewHTTPServer(handler)
@@ -20,6 +22,7 @@ func RunHTTPServer(quit chan error) {
 	log.Println("Running http server on :8080 port")
 
 	if err := handler.Run(":8080"); err != nil {
-		quit <- err
+		zap.S().Errorf("Error on server run %v", err)
+		<-quit
 	}
 }

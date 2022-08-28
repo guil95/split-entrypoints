@@ -3,16 +3,19 @@ package grpc
 import (
 	"log"
 	"net"
+	"os"
 
 	"github.com/guil95/split-entrypoints/internal/users/infra/server/grpc/server"
 	pb "github.com/guil95/split-entrypoints/proto/genpb/users"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
 
-func RunGrpcServer(quit chan error) {
+func RunGrpcServer(quit chan os.Signal) {
 	lis, err := net.Listen("tcp", "0.0.0.0:50001")
 	if err != nil {
-		quit <- err
+		zap.S().Errorf("Error to listen server %v", err)
+		<-quit
 	}
 
 	s := server.NewServer()
@@ -21,6 +24,7 @@ func RunGrpcServer(quit chan error) {
 
 	log.Println("Server running on port 50001")
 	if err := grpcServer.Serve(lis); err != nil {
-		quit <- err
+		zap.S().Errorf("Error in running server %v", err)
+		<-quit
 	}
 }

@@ -1,6 +1,10 @@
 package commands
 
 import (
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/guil95/split-entrypoints/config/entrypoints/http"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
@@ -11,7 +15,8 @@ func NewHTTPCommand() *cobra.Command {
 		Use:   "http",
 		Short: "Start http server",
 		Run: func(cmd *cobra.Command, args []string) {
-			quit := make(chan error)
+			quit := make(chan os.Signal, 1)
+			signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 
 			go http.RunHTTPServer(quit)
 
