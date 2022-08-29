@@ -11,11 +11,17 @@ option go_package = "./users";
 // Service of users application.
 service UsersService {
   rpc GetUsers(google.protobuf.Empty) returns (GetUsersResponse) {}
+  rpc SaveUser(User) returns (SaveUsersResponse) {}
 }
 
 // The list of users.
 message GetUsersResponse {
   repeated User users = 1;
+}
+
+// The list of users.
+message SaveUsersResponse {
+  User user = 1;
 }
 
 message User {

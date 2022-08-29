@@ -1,6 +1,7 @@
 package grpc
 
 import (
+	"github.com/guil95/split-entrypoints/internal/users/usecases"
 	"log"
 	"net"
 	"os"
@@ -14,16 +15,18 @@ import (
 func RunGrpcServer(quit chan os.Signal) {
 	lis, err := net.Listen("tcp", "0.0.0.0:50001")
 	if err != nil {
+		_ = lis.Close()
 		zap.S().Errorf("Error to listen server %v", err)
 		<-quit
 	}
 
-	s := server.NewServer()
+	s := server.NewServer(usecases.UseCase{})
 	grpcServer := grpc.NewServer()
 	pb.RegisterUsersServiceServer(grpcServer, s)
 
 	log.Println("Server running on port 50001")
 	if err := grpcServer.Serve(lis); err != nil {
+		_ = lis.Close()
 		zap.S().Errorf("Error in running server %v", err)
 		<-quit
 	}

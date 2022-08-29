@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/guil95/split-entrypoints/internal/users/usecases"
 	"log"
 	"os"
 
@@ -16,12 +17,12 @@ func init() {
 func RunHTTPServer(quit chan os.Signal) {
 	handler := gin.Default()
 
-	s := server.NewHTTPServer(handler)
+	s := server.NewHTTPServer(handler, usecases.UseCase{})
 	s.Api()
 
-	log.Println("Running http server on :8080 port")
+	log.Println("Running http server on :8081 port")
 
-	if err := handler.Run(":8080"); err != nil {
+	if err := handler.Run(":8081"); err != nil {
 		zap.S().Errorf("Error on server run %v", err)
 		<-quit
 	}
