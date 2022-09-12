@@ -10,5 +10,6 @@ func main() {
 
 	rootCmd.AddCommand(commands.NewGrpcCommand())
 	rootCmd.AddCommand(commands.NewHTTPCommand())
+	rootCmd.AddCommand(commands.NewConsumersCommand())
 	_ = rootCmd.Execute()
 }

@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  http:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: split-entrypoints-http
+    ports:
+      - "8081:8081"
+    restart: always
+    command: http
+
+  grpc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: split-entrypoints-grpc
+    ports:
+      - "50001:50001"
+    restart: always
+    command: grpc
+
+  consumers:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: split-entrypoints-consumers
+    restart: always
+    command: consumers
