@@ -17,6 +17,11 @@
  ./app grpc
 ```
 
+#### Run consumers
+```shell
+ ./app consumers
+```
+
 ### With Go CLI
 
 #### Run http server
@@ -27,4 +32,16 @@
 #### Run grpc server
 ```shell
  go run cmd/main.go grpc 
+```
+
+#### Run consumers
+```shell
+ go run cmd/main.go consumers 
+```
+
+### With docker
+
+#### Run all the entrypoints
+```shell
+docker-compose up --build -d
 ```
