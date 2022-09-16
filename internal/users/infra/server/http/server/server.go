@@ -39,5 +39,11 @@ func (server httpServer) saveUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, user)
+	err = server.uc.Save(ctx, &user)
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, user)
 }

@@ -1,24 +1,24 @@
-package commands
+package workers
 
 import (
-	"github.com/guil95/split-entrypoints/config/entrypoints/kafka"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"github.com/guil95/split-entrypoints/config/entrypoints/grpc"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
 
-func NewConsumersCommand() *cobra.Command {
+func NewGrpcWorker() *cobra.Command {
 	return &cobra.Command{
-		Use:   "consumers",
-		Short: "Start consumers",
+		Use:   "grpc",
+		Short: "Start grpc server",
 		Run: func(cmd *cobra.Command, args []string) {
 			quit := make(chan os.Signal, 1)
 			signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 
-			go kafka.RunKafkaConsumers(quit)
+			go grpc.RunGrpcServer(quit)
 
 			err := <-quit
 

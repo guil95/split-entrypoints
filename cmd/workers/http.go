@@ -1,28 +1,28 @@
-package commands
+package workers
 
 import (
 	"os"
 	"os/signal"
 	"syscall"
 
-	"github.com/guil95/split-entrypoints/config/entrypoints/grpc"
+	"github.com/guil95/split-entrypoints/config/entrypoints/http"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
 
-func NewGrpcCommand() *cobra.Command {
+func NewHTTPWorker() *cobra.Command {
 	return &cobra.Command{
-		Use:   "grpc",
-		Short: "Start grpc server",
+		Use:   "http",
+		Short: "Start http server",
 		Run: func(cmd *cobra.Command, args []string) {
 			quit := make(chan os.Signal, 1)
 			signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 
-			go grpc.RunGrpcServer(quit)
+			go http.RunHTTPServer(quit)
 
 			err := <-quit
 
-			zap.S().Fatal("Error grpc server:", err)
+			zap.S().Fatal("Error http server:", err)
 		},
 	}
 }

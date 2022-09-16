@@ -1,6 +1,8 @@
 package grpc
 
 import (
+	"github.com/guil95/split-entrypoints/config/storages/mongo"
+	repo "github.com/guil95/split-entrypoints/internal/users/infra/repository/mongo"
 	"github.com/guil95/split-entrypoints/internal/users/usecases"
 	"log"
 	"net"
@@ -20,7 +22,7 @@ func RunGrpcServer(quit chan os.Signal) {
 		<-quit
 	}
 
-	s := server.NewServer(usecases.UseCase{})
+	s := server.NewServer(usecases.NewUseCase(repo.NewCommandMongoRepository(mongo.Connect())))
 	grpcServer := grpc.NewServer()
 	pb.RegisterUsersServiceServer(grpcServer, s)
 

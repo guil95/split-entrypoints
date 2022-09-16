@@ -6,6 +6,8 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/guil95/split-entrypoints/config/storages/mongo"
+	repo "github.com/guil95/split-entrypoints/internal/users/infra/repository/mongo"
 	"github.com/guil95/split-entrypoints/internal/users/infra/server/http/server"
 	"go.uber.org/zap"
 )
@@ -17,7 +19,7 @@ func init() {
 func RunHTTPServer(quit chan os.Signal) {
 	handler := gin.Default()
 
-	s := server.NewHTTPServer(handler, usecases.UseCase{})
+	s := server.NewHTTPServer(handler, usecases.NewUseCase(repo.NewCommandMongoRepository(mongo.Connect())))
 	s.Api()
 
 	log.Println("Running http server on :8081 port")
