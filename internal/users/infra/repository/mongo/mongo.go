@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	"github.com/guil95/outbox"
 	"github.com/guil95/split-entrypoints/internal/users"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -37,8 +38,7 @@ func (r repository) SaveUser(ctx context.Context, user *users.User) error {
 	_, err = collectionOutbox.InsertOne(ctx, &outbox.Model{
 		IdempotencyID: user.ID,
 		Message:       string(message),
-		Topic:         "users",
-		Event:         "user_saved",
+		Topic:         "user_created",
 	})
 	if err != nil {
 		return err
