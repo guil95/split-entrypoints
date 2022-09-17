@@ -33,6 +33,7 @@ func (r repository) SaveUser(ctx context.Context, user *users.User) error {
 		return err
 	}
 
+	// TODO save in transaction
 	collectionOutbox := r.db.Collection("outbox")
 
 	_, err = collectionOutbox.InsertOne(ctx, &outbox.Model{
