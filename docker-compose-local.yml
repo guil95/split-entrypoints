@@ -1,46 +1,6 @@
 version: "3.9"
 
 services:
-  http:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: split-entrypoints-http
-    depends_on:
-      - kafka
-    ports:
-      - "8081:8081"
-    env_file:
-      - .env
-    restart: always
-    command: http
-
-  grpc:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: split-entrypoints-grpc
-    depends_on:
-      - kafka
-    ports:
-      - "50001:50001"
-    env_file:
-      - .env
-    restart: always
-    command: grpc
-
-  consumers:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - kafka
-    env_file:
-      - .env
-    container_name: split-entrypoints-consumers
-    restart: always
-    command: consumers
-
   mongo.db:
     container_name: mongo_split
     image: mongo:3.4
@@ -67,7 +27,7 @@ services:
       - "9092:9092"
       - "29092:29092"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
