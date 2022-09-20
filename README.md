@@ -4,44 +4,27 @@
 
 ### With bin file
 ```shell
- go build -o app cmd/main.go 
+ make run-local
 ```
 
 #### Run http server
 ```shell
- ./app http
+ ./split-entrypoints http
 ```
 
 #### Run grpc server
 ```shell
- ./app grpc
+ ./split-entrypoints grpc
 ```
 
 #### Run consumers
 ```shell
- ./app consumers
-```
-
-### With Go CLI
-
-#### Run http server
-```shell
- go run cmd/main.go http 
-```
-
-#### Run grpc server
-```shell
- go run cmd/main.go grpc 
-```
-
-#### Run consumers
-```shell
- go run cmd/main.go consumers 
+ ./split-entrypoints consumers
 ```
 
 ### With docker
 
 #### Run all the entrypoints
 ```shell
-docker-compose up --build -d
+make run-docker
 ```
