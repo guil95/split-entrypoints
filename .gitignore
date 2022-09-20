@@ -19,3 +19,6 @@ vendor/
 
 # OS files
 .DS_Store
+
+# bin file
+split-entrypoints
