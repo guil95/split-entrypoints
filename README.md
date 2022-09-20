@@ -24,7 +24,7 @@
 
 ### With docker
 
-#### Run all the entrypoints
+#### Run all the entrypoint
 ```shell
 make run-docker
 ```
