@@ -8,12 +8,13 @@ import (
 	"github.com/guil95/split-entrypoints/config/storages/mongo"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/spf13/cobra"
+	"os"
 )
 
 func main() {
 	ctx := context.Background()
 	o := outbox.NewOutbox(
-		outbox.NewMongoStorage(mongo.Connect()),
+		outbox.NewMongoStorage(mongo.Connect().Database(os.Getenv("DB_DATABASE"))),
 		outbox.NewKafkaProducer(kafka.RetrieveProducer()),
 	)
 	go o.Listen(ctx)
