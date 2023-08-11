@@ -91,6 +91,8 @@ github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+
 github.com/grpc-ecosystem/grpc-gateway v1.16.0/go.mod h1:BDjrQk3hbvj6Nolgz8mAMFbcEtjT1g+wF4CSlocrBnw=
 github.com/guil95/outbox v0.2.0 h1:1uoQYKotnUdAW4wqWVCggThMmiOqJQdzLsixR7XVHOU=
 github.com/guil95/outbox v0.2.0/go.mod h1:M+ZT8aw/bHC6ZdgooARr2vdIOrv46y6+1AHqws+j4SM=
+github.com/guil95/outbox v1.0.0 h1:tnHK14An7DoEOCFZmvyhAqSsCv3IPfDYd8F8uCS8xh4=
+github.com/guil95/outbox v1.0.0/go.mod h1:M+ZT8aw/bHC6ZdgooARr2vdIOrv46y6+1AHqws+j4SM=
 github.com/hamba/avro v1.5.6/go.mod h1:3vNT0RLXXpFm2Tb/5KC71ZRJlOroggq1Rcitb6k4Fr8=
 github.com/heetch/avro v0.3.1/go.mod h1:4xn38Oz/+hiEUTpbVfGVLfvOg0yKLlRP7Q9+gJJILgA=
 github.com/iancoleman/orderedmap v0.0.0-20190318233801-ac98e3ecb4b0/go.mod h1:N0Wam8K1arqPXNWjMo21EXnBPOPp36vB07FNRdD2geA=
